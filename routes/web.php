@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Index;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
+Route::get('/', [Index::class, 'index']);
+Route::get('/show', [Index::class, 'show']);
