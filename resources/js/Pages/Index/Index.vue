@@ -2,7 +2,9 @@
     <div>Index</div>
     <Link href="/show">Show Page</Link>
     <div>
-        The message is {{ message }}
+        <h1 className="text-3xl font-bold underline">
+            {{ message }}
+        </h1> 
     </div>
 </template>
 
