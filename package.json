@@ -16,6 +16,7 @@
         "vue": "^3.2.47"
     },
     "dependencies": {
+        "@glidejs/glide": "^3.6.0",
         "@inertiajs/vue3": "^1.0.2"
     }
 }

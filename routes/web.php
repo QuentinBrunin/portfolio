@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Index::class, 'index']);
 Route::get('/show', [Index::class, 'show']);
+Route::get('/gallery', function () {
+    return Inertia\Inertia::render('Gallery');
+  });
