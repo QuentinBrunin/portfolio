@@ -1,124 +1,65 @@
 <template>
-    <div class="glide gallery">
-      <div class="glide__track" data-glide-el="track">
-        <ul class="glide__slides">
-          <li class="glide__slide"><img src="https://picsum.photos/id/1/600/400" alt="Image 1"></li>
-          <li class="glide__slide"><img src="https://picsum.photos/id/2/600/400" alt="Image 2"></li>
-          <li class="glide__slide"><img src="https://picsum.photos/id/3/600/400" alt="Image 3"></li>
-          <li class="glide__slide"><img src="https://picsum.photos/id/4/600/400" alt="Image 4"></li>
-          <li class="glide__slide"><img src="https://picsum.photos/id/5/600/400" alt="Image 5"></li>
-          <li class="glide__slide"><img src="https://picsum.photos/id/6/600/400" alt="Image 6"></li>
-        </ul>
-      </div>
-  
-      <div class="glide__arrows" data-glide-el="controls">
-        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">&#60;</button>
-        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#62;</button>
+  <div class="slider lg:overflow-hidden lg:hover:cursor-move lg:w-[800px] lg:-ml-20" @mousedown="startDragging" @mousemove="drag" @mouseup="stopDragging">
+    <div class="slider-track lg:flex" :style="{ transform: `translateX(${-position}px)` }">
+      <div class="slider-item lg:rounded-3xl lg:w-[260px] lg:h-[291px] lg:bg-[#81282B]  lg:pt-[14px] lg:mx-5" v-for="(item, index) in items" :key="index">
+        <img class="lg:rounded-3xl lg:w-[225px] lg:h-[214px] lg:mx-auto lg:object-cover" :src="item.src" :alt="item.alt">
+        <a :href="item.url" target="_blank" class="lg:text-white lg:mt-1 lg:text-sm block lg:text-center lg:px-4"> <span class="lg:hover:cursor-pointer"> {{ item.figcaption }}</span></a>
       </div>
     </div>
+  </div>
 </template>
-  
-  <script>
-  import { onMounted } from '@inertiajs/inertia';
-  
-  export default {
-    setup() {
-      onMounted(() => {
-        // Initialisation de Glide.js
-        new Glide('.glide', {
-          type: 'carousel', // type de la galerie : carousel
-          perView: 3, // nombre d'images visibles en même temps
-          focusAt: 'center', // centre la première image visible
-          gap: 30 // espace entre chaque image
-        }).mount(); // monte la galerie
-      });
-    }
-  };
-  </script>
-  
-  <style>
-  @import url('/css/app.css');
-  
-/* Style personnalisé de la galerie */
-.glide {
-  width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-}
-.glide .glide__track {
-  list-style: none;
-  position: relative;
-  z-index: 1;
-}
-.glide .glide__slides {
-  display: flex;
-  align-items: center;
-}
-.glide .glide__slide {
-  width: 100%;
-  margin-right: 30px;
-  transition: transform 0.3s ease;
-  transform-origin: center;
-}
-.glide .glide__slide img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-.glide .glide__arrow {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background: transparent;
-  border: none;
-}
 
-.gallery {
-  max-width: 960px;
-  margin: 0 auto;
-}
+<script>
+import { reactive } from 'vue';
+import { router } from '@inertiajs/vue3'
 
-.glide__slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+export default {
+  data() {
+    return {
+      position: 0,
+      dragging: false,
+      startX: 0,
+      currentX: 0,
+      items: [
+        { src: '../img/millam.JPG', alt: 'Image 1', figcaption: 'Maquette pour la Mairie de Millam', url: 'https://xd.adobe.com/view/0b02a9ae-8bda-430a-bfcd-8ea391b07fe1-5e51/?fullscreen' },
+        { src: '../img/logo.png', alt: 'Image 2', figcaption: 'Création du site Deviniteam.com', url:'https://deviniteam.com/' },
+        { src: '../img/logo2.png', alt: 'Image 3', figcaption: "La Patrouille d'Arthur, emballage de bonbons et boissons" },
+      ],
+    };
+  },
+  methods: {
+    startDragging(event) {
+      this.dragging = true;
+      this.startX = event.clientX || event.touches[0].clientX;
+    },
+    drag(event) {
+      if (!this.dragging) {
+        return;
+      }
 
-.glide__slide img {
-  max-width: 100%;
-}
+      event.preventDefault();
 
-.glide__arrows {
-  position: relative;
-}
+      this.currentX = event.clientX || event.touches[0].clientX;
+      const diff = this.currentX - this.startX;
+      this.position += diff;
+      this.startX = this.currentX;
+    },
+    stopDragging() {
+      this.dragging = false;
+      const direction = this.position > 0 ? 'right' : 'left';
+      const threshold = 100;
+      const shouldChange = Math.abs(this.position) > threshold;
 
-.glide__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  font-size: 20px;
-  transition: background-color 0.2s;
-}
-
-.glide__arrow:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.glide__arrow--left {
-  left: 0;
-}
-
-.glide__arrow--right {
-  right: 0;
-}
-
-</style>
+      if (shouldChange) {
+        if (direction === 'right') {
+          router.get(route('slider.prev'));
+        } else if (direction === 'left') {
+          router.get(route('slider.next'));
+        }
+      } else {
+        this.position = 0;
+      }
+    },
+  },
+};
+</script>

@@ -16,7 +16,7 @@
         "vue": "^3.2.47"
     },
     "dependencies": {
-        "@glidejs/glide": "^3.6.0",
-        "@inertiajs/vue3": "^1.0.2"
+        "@inertiajs/vue3": "^1.0.2",
+        "vue3-touch-events": "^4.1.2"
     }
 }
