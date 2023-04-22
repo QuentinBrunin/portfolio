@@ -1,9 +1,9 @@
 <template>
-  <div class="slider lg:overflow-hidden lg:hover:cursor-move lg:w-[800px] lg:-ml-20" @mousedown="startDragging" @mousemove="drag" @mouseup="stopDragging">
+  <div class="slider lg:overflow-hidden lg:hover:cursor-move lg:w-[800px] lg:-ml-20 lg:z-50" @mousedown="startDragging" @mousemove="drag" @mouseup="stopDragging">
     <div class="slider-track lg:flex" :style="{ transform: `translateX(${-position}px)` }">
-      <div class="slider-item lg:rounded-3xl lg:w-[260px] lg:h-[291px] lg:bg-[#81282B]  lg:pt-[14px] lg:mx-5" v-for="(item, index) in items" :key="index">
-        <img class="lg:rounded-3xl lg:w-[225px] lg:h-[214px] lg:mx-auto lg:object-cover" :src="item.src" :alt="item.alt">
-        <a :href="item.url" target="_blank" class="lg:text-white lg:mt-1 lg:text-sm block lg:text-center lg:px-4"> <span class="lg:hover:cursor-pointer"> {{ item.figcaption }}</span></a>
+      <div class="slider-item lg:rounded-3xl lg:w-[260px] lg:h-[291px] lg:bg-[#81282B] lg:pt-[14px]  lg:mx-5 lg:z-50" v-for="(item, index) in items" :key="index">
+        <img class="lg:rounded-3xl lg:w-[225px] lg:h-[214px] lg:mx-auto lg:object-cover lg:z-50 " :src="item.src" :alt="item.alt">
+        <a :href="item.url" target="_blank" class="lg:text-white lg:mt-1 lg:text-sm block lg:text-center lg:px-4 lg:z-50"> <span class="lg:hover:cursor-pointer"> {{ item.figcaption }}</span></a>
       </div>
     </div>
   </div>

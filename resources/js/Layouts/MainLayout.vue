@@ -1,10 +1,10 @@
 <template>
-    <body class="lg:flex">
-        <div class="lg:flex lg:flex-col lg:w-[250px] lg:h-[100vh] lg:bg-[#81282B]">
+    <body class="lg:flex lg:overflow-hidden bg">
+        <header class="lg:flex lg:flex-col lg:w-[250px] lg:h-[100vh] lg:bg-[#81282B]">
             <h1 class="lg:mx-auto lg:text-[36px] lg:mt-4 lg:text-white lg:text-opacity-60"><Link href="/">Portfolio</Link></h1>
             
 
-            <div class="lg:flex lg:flex-col lg:mx-auto lg:mt-20 lg:h-[562px] lg:justify-between">
+            <nav class="lg:flex lg:flex-col lg:mx-auto lg:mt-20 lg:h-[562px] lg:justify-between lg:z-50">
 
                 <div class="lg:rounded-full lg:bg-[#B1464A] lg:w-[105px] lg:h-[105px] lg:relative">
                     <Link href="/">
@@ -30,15 +30,9 @@
                     </Link>
                 </div>
 
-                <div class="lg:rounded-full lg:bg-[#B1464A] lg:w-[105px] lg:h-[105px] lg:relative ">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user lg:absolute lg:top-5 lg:left-5" width="64" height="64" viewBox="0 0 24 24" stroke-width="1.5" stroke="#BEBEBE" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <circle cx="12" cy="7" r="4" />
-                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                    </svg>
-                </div>
 
                 <div class="lg:rounded-full lg:bg-[#B1464A] lg:w-[105px] lg:h-[105px] lg:relative">
+                    <Link href="/contact">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail-opened lg:absolute lg:top-5 lg:left-5" width="64" height="64" viewBox="0 0 24 24" stroke-width="1.5" stroke="#BEBEBE" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <polyline points="3 9 12 15 21 9 12 3 3 9" />
@@ -46,9 +40,10 @@
                         <line x1="3" y1="19" x2="9" y2="13" />
                         <line x1="15" y1="13" x2="21" y2="19" />
                     </svg>
+                    </Link>
                 </div>
-            </div>
-        </div>
+            </nav>
+        </header>
 
         <!-- ICON SOCIAL -->
 
@@ -97,7 +92,8 @@
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3';
+
 </script>
 
 <style>
@@ -109,6 +105,14 @@ body{
     width: 100%;
     height: 100vh;
     font-family: 'Poppins', sans-serif;
+}
+
+.bg{
+    background-image: url(../img/bg2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    z-index: 0;
 }
 
 .icon-tabler-mail-opened:hover, .icon-tabler-user:hover, .icon-tabler-book:hover, .icon-tabler-home:hover,

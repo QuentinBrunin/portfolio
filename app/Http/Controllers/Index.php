@@ -17,5 +17,10 @@ class Index extends Controller
     {
         return inertia('Index/Show');
     }
+
+    public function contact()
+    {
+        return inertia('Index/Contact');
+    }
    
 }
